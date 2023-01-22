@@ -1,36 +1,31 @@
 local M = {}
 
-M.darkMode = {
+local tokyonight_night_colors = {
   white = "#abb2bf",
-  darker_black = "#1b1f27",
-  black = "#1e222a", --  nvim bg
-  black2 = "#252931",
-  one_bg = "#282c34", -- real bg of onedark
-  one_bg2 = "#353b45",
-  one_bg3 = "#373b43",
-  grey = "#42464e",
-  grey_fg = "#565c64",
-  grey_fg2 = "#6f737b",
-  light_grey = "#6f737b",
-  red = "#e06c75",
-  baby_pink = "#DE8C92",
-  pink = "#ff75a0",
-  line = "#31353d", -- for lines like vertsplit
+  black = "#1e222a",
+  grey = "#6f737b",
   green = "#98c379",
-  vibrant_green = "#7eca9c",
-  nord_blue = "#81A1C1",
-  blue = "#61afef",
-  yellow = "#e7c787",
-  sun = "#EBCB8B",
-  purple = "#de98fd",
-  dark_purple = "#c882e7",
-  teal = "#519ABA",
+  blue = "#81A1C1",
+  purple = "#c882e7",
   orange = "#fca2aa",
-  cyan = "#a3b8ef",
   statusline_bg = "#22262e",
   lightbg = "#2d3139",
-  pmenu_bg = "#61afef",
-  folder_bg = "#61afef",
+}
+
+M.tokyonight_night = {
+  normal = {
+    a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.blue },
+    b = { fg = tokyonight_night_colors.white, bg = tokyonight_night_colors.lightbg },
+    c = { fg = tokyonight_night_colors.grey, bg = tokyonight_night_colors.statusline_bg },
+
+    x = { fg = tokyonight_night_colors.blue, bg = tokyonight_night_colors.statusline_bg },
+    y = { fg = tokyonight_night_colors.white, bg = tokyonight_night_colors.lightbg },
+    z = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.blue },
+  },
+  insert = { a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.green } },
+  visual = { a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.orange } },
+  terminal = { a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.purple } },
+  replace = { a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.green } },
 }
 
 return M

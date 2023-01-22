@@ -1,31 +1,12 @@
--- import telescope plugin safely
-local telescope_setup, telescope = pcall(require, "telescope")
-if not telescope_setup then
-	return
-end
+local utils = require("core.utils")
 
--- import telescope actions safely
-local actions_setup, actions = pcall(require, "telescope.actions")
-if not actions_setup then
-	return
-end
+local custom = require("config").telescope
 
-local options = {
+local default = {
 	defaults = {
-		vimgrep_arguments = {
-			"rg",
-			"-L",
-			"--color=never",
-			"--no-heading",
-			"--with-filename",
-			"--line-number",
-			"--column",
-			"--smart-case",
-		},
 		prompt_prefix = "   ",
-		selection_caret = "  ",
+		selection_caret = " ",
 		entry_prefix = "  ",
-		initial_mode = "insert",
 		selection_strategy = "reset",
 		sorting_strategy = "ascending",
 		layout_strategy = "horizontal",
@@ -43,26 +24,47 @@ local options = {
 			preview_cutoff = 120,
 		},
 		file_ignore_patterns = { "node_modules" },
-		path_display = { "truncate" },
-		winblend = 0,
-		border = {},
-		borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-		color_devicons = true,
-		file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-		grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-		qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
-		buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
 		mappings = {
-			n = { ["q"] = require("telescope.actions").close },
+			n = {
+				["q"] = function(...)
+					require("telescope.actions").close(...)
+				end,
+			},
 			i = {
-				["<C-k>"] = actions.move_selection_previous, -- move to prev result
-				["<C-j>"] = actions.move_selection_next, -- move to next result
-				["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist, -- send selected to quickfixlist
+				["<C-k>"] = function(...)
+					require("telescope.actions").move_selection_previous(...)
+				end,
+				["<C-j>"] = function(...)
+					require("telescope.actions").move_selection_next(...)
+				end,
+				["<C-Down>"] = function(...)
+					return require("telescope.actions").cycle_history_next(...)
+				end,
+				["<C-Up>"] = function(...)
+					return require("telescope.actions").cycle_history_prev(...)
+				end,
 			},
 		},
 	},
 }
 
-telescope.setup(options)
+local options = utils.merge_tables(default, custom)
 
-telescope.load_extension("fzf")
+return {
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = { "nvim-telescope/telescope-fzf-native.nvim" },
+		cmd = "Telescope",
+		opts = options,
+		config = function(_, opts)
+			local telescope_setup, telescope = pcall(require, "telescope")
+			if not telescope_setup then
+				return
+			end
+
+			telescope.setup(opts)
+			telescope.load_extension("fzf")
+		end,
+	},
+}

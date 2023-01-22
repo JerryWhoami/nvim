@@ -1,27 +1,18 @@
--- Colorscheme
-vim.g.colorscheme = "tokyonight-night"
+require("core")
 
-require "plugins.impatient"
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = { "*.php" },
+	callback = function()
+		vim.opt.shiftwidth = 2
+		vim.opt.tabstop = 2
+		vim.opt.expandtab = true
+	end,
+})
 
-require "plugins-setup"
-require "core"
-
-require "plugins.lsp"
-require "plugins.telescope"
-require "plugins.whichkey"
-require "plugins.autocompletion"
-require "plugins.nvim-tree"
-
-require "plugins.comment"
-require "plugins.alpha"
-require "plugins.tresitter"
-require "plugins.autopairs"
-require "plugins.illuminate"
-require "plugins.indentline"
-require "plugins.colorizer"
-require "plugins.toggleterm"
-require "plugins.lualine"
-require "plugins.vim-sync"
-require "plugins.bufferline"
-
-require("highlights").loadTheme()
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = { "*.blade.php" },
+	callback = function()
+		vim.cmd("setlocal filetype=blade")
+		require("luasnip").filetype_extend("blade", { "html" })
+	end,
+})

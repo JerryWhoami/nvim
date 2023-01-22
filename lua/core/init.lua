@@ -1,46 +1,41 @@
+local config = require("config")
+
+vim.g.mapleader = config.leader_key
+vim.g.maplocalleader = config.leader_key
+
+-- Setup plugin manager
+require("core.lazy")
+
+-- Keymaps
+local keymapConfig = require("core.keymaps")
+for mode, mode_mappings in pairs(keymapConfig.keymaps) do
+	local opts = (mode == "t") and keymapConfig.options.term_opts or keymapConfig.options.default
+	for keymap, command in pairs(mode_mappings) do
+		vim.api.nvim_set_keymap(mode, keymap, command, opts)
+	end
+end
+
+-- Options
+local options = require("core.options")
+for index, value in pairs(options) do
+	vim.opt[index] = value
+end
+
+vim.opt.shortmess:append("c") -- don't show redundant messages from ins-completion-menu
+vim.opt.whichwrap:append("<,>,[,],h,l") -- for line wrapping
+if config.include_hyphen_in_word then
+	vim.opt.iskeyword:append("-") -- Include - as part of a word
+end
+
 -- Require globals
-require "core.globals"
+require("core.globals")
 
 -- Colorscheme
-local status_ok, _ = pcall(vim.cmd, "colorscheme " .. vim.g.colorscheme)
-if not status_ok then
-  vim.notify("colorscheme " .. vim.g.colorscheme .. " not found!")
-  return
-end
+vim.cmd("colorscheme tokyonight-night")
+vim.cmd("colorscheme tokyonight-night")
 
-local options = require "core.options"
-for index, value in pairs(options) do
-  vim.opt[index] = value
-end
-
-vim.opt.iskeyword:append "-" -- Include - as part of a word
-vim.opt.shortmess:append "c" -- don't show redundant messages from ins-completion-menu
-vim.opt.whichwrap:append "<,>,[,],h,l" -- for line wrapping
-
--- Set keymappings
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
-local config = require "core.keymaps"
-for mode, mode_mappings in pairs(config.keymaps) do
-  local opts = (mode == "t") and config.options.term_opts or config.options.default
-  for keymap, command in pairs(mode_mappings) do
-    vim.api.nvim_set_keymap(mode, keymap, command, opts)
-  end
-end
-
--- Autocommands
-local autocmd = vim.api.nvim_create_autocmd
-
--- Dont list quickfix buffers
-autocmd("FileType", {
-  pattern = "qf",
-  callback = function()
-    vim.opt_local.buflisted = false
-  end,
-})
--- Set Blade filetype
-autocmd("BufEnter", {
-  pattern = { "*.blade.php" },
-  command = "setlocal filetype=blade",
-})
+-- Disable providers
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
