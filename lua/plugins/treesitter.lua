@@ -3,7 +3,7 @@ return {
   dependencies = {
     "p00f/nvim-ts-rainbow",
     "windwp/nvim-ts-autotag",
-    "JoosepAlviste/nvim-ts-context-commentstring"
+    "JoosepAlviste/nvim-ts-context-commentstring",
   },
   version = false, -- last release is way too old and doesn't work on Windows
   build = ":TSUpdate",
@@ -56,10 +56,10 @@ return {
       -- termcolors = {} -- table of colour name strings
     },
   },
-  config = function (_, opts)
+  config = function(_, opts)
     local parser = require("nvim-treesitter.parsers").filetype_to_parsername
     parser.blade = "html"
 
     require("nvim-treesitter.configs").setup(opts)
-  end
+  end,
 }
