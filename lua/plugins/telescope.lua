@@ -37,6 +37,15 @@ local default = {
         ["<C-j>"] = function(...)
           require("telescope.actions").move_selection_next(...)
         end,
+        ["<a-i>"] = function()
+          require("telescope.builtin").find_files { no_ignore = true }
+        end,
+        ["<a-h>"] = function()
+          require("telescope.builtin").find_files { hidden = true }
+        end,
+        ["<a-a>"] = function()
+          require("telescope.builtin").find_files { hidden = true, no_ignore = true }
+        end,
         ["<C-Down>"] = function(...)
           return require("telescope.actions").cycle_history_next(...)
         end,

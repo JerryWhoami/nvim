@@ -1,4 +1,4 @@
-local utils = require("core.utils")
+local utils = require "core.utils"
 
 local custom = require("config").neo_tree
 
@@ -16,9 +16,9 @@ local default = {
           local root_len = string.len(root_name) + 4
           return {
             width = math.max(root_len, 40),
-            height = vim.o.lines - 6
+            height = vim.o.lines - 6,
           }
-        end
+        end,
       },
     },
     follow_current_file = true,
@@ -41,7 +41,7 @@ return {
     if vim.fn.argc() == 1 then
       local stat = vim.loop.fs_stat(vim.fn.argv(0))
       if stat and stat.type == "directory" then
-        require("neo-tree")
+        require "neo-tree"
       end
     end
   end,
