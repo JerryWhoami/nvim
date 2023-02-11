@@ -29,7 +29,6 @@ return {
     servers_with_formatting_capabilities = {
       "intelephense",
       "tsserver",
-      "tailwindcss",
     },
     options = {
       virtual_text = false,
