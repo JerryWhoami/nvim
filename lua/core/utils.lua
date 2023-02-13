@@ -59,12 +59,12 @@ M.smart_buffer_close = function()
 
   if modified then
     vim.ui.input({
-      prompt = "You have unsaved changes. Quit anyway? (Y/n) ",
+      prompt = "You have unsaved changes. Quit anyway? (y/n) ",
     }, function(input)
-        if input == "Y" or input == "y" or input == nil then
-          vim.cmd("bd! " .. buffer_to_delete)
-        end
-      end)
+      if input == "Y" or input == "y" then
+        vim.cmd("bd! " .. buffer_to_delete)
+      end
+    end)
   else
     vim.cmd("bd! " .. buffer_to_delete)
   end
@@ -76,12 +76,12 @@ M.smart_quit = function()
 
   if modified then
     vim.ui.input({
-      prompt = "You have unsaved changes. Quit anyway? (Y/n) ",
+      prompt = "You have unsaved changes. Quit anyway? (y/n) ",
     }, function(input)
-        if input == "Y" or input == "y" or input == nil then
-          vim.cmd "q!"
-        end
-      end)
+      if input == "Y" or input == "y" then
+        vim.cmd "q!"
+      end
+    end)
   else
     vim.cmd "q!"
   end

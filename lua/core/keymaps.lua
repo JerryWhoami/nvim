@@ -43,7 +43,7 @@ M.keymaps = {
     ["<S-Tab>"] = "<cmd>BufferLineCyclePrev<cr>",
 
     -- Substitute the every ocurrence of the word your on
-    ["<leader>s"] = ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>",
+    ["<leader>S"] = ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>",
   },
   i = {
     -- Save like a normal IDE
@@ -59,8 +59,8 @@ M.keymaps = {
   },
   v = {
     -- Move text up and down
-    ["<A-j>"] = "<cmd>m .+1<CR>==",
-    ["<A-k>"] = "<cmd>m .-2<CR>==",
+    ["<A-j>"] = ":move '>+1<CR>gv=gv",
+    ["<A-k>"] = ":move '<-2<CR>gv=gv",
 
     -- Stay in indent mode after adding or removing tabs
     ["<"] = "<gv",
@@ -68,11 +68,6 @@ M.keymaps = {
 
     -- Substitute the selected text with clipboard text
     ["p"] = '"_dP',
-  },
-  x = {
-    -- Move text up and down
-    ["<A-j>"] = ":move '>+1<CR>gv=gv",
-    ["<A-k>"] = ":move '<-2<CR>gv=gv",
   },
   t = {
     -- Toggle Terminal

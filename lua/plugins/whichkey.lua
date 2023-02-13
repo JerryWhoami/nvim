@@ -119,6 +119,11 @@ local mappings = {
     x = { "<cmd>close<cr>", "Close Splits" },
     e = { "<C-w>=", "Reset Splits" },
   },
+  n = {
+    name = "Notifications",
+    d = { "<cmd>lua require('notify').dismiss({ silent = true, pending = true })<cr>", "Delete all Notifications" },
+    h = { "<cmd>Telescope notify<cr>", "History" },
+  },
 }
 
 local opts = {
