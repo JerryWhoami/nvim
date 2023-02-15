@@ -1,4 +1,5 @@
-local custom = require("config").lualine
+local config = require("config")
+local custom = config.lualine
 local utils = require("core.utils")
 
 local get_theme = function(custom_theme)
@@ -16,6 +17,12 @@ local components = require("plugins.lualine.components")
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
+	enabled = function()
+		if config.zen_mode then
+			return false
+		end
+		return true
+	end,
 	opts = {
 		options = {
 			icons_enabled = true,
