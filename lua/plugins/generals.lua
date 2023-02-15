@@ -51,6 +51,12 @@ return {
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		event = "BufReadPre",
+		enabled = function()
+			if config.zen_mode then
+				return false
+			end
+			return true
+		end,
 		opts = {
 			filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
 			show_trailing_blankline_indent = false,
