@@ -3,8 +3,25 @@ local utils = require "core.utils"
 local custom = require("config").neo_tree
 
 local default = {
+  close_if_last_window = true,
   floating_window = false,
   popup_border_style = "rounded",
+  enable_git_status = true,
+  enable_diagnostics = true,
+  default_component_configs = {
+    indent = {
+      indent_size = 2,
+      padding = 1, -- extra padding on left hand side
+      with_markers = true,
+      indent_marker = "│",
+      last_indent_marker = "└",
+      highlight = "NeoTreeIndentMarker",
+      with_expanders = true,
+      expander_collapsed = "",
+      expander_expanded = "",
+      expander_highlight = "NeoTreeExpander",
+    },
+  },
   filesystem = {
     window = {
       position = "right",

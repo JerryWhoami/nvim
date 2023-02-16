@@ -31,6 +31,12 @@ local default = {
         end,
       },
       i = {
+        ["<S-Tab>"] = function(...)
+          require("telescope.actions").move_selection_previous(...)
+        end,
+        ["<Tab>"] = function(...)
+          require("telescope.actions").move_selection_next(...)
+        end,
         ["<C-k>"] = function(...)
           require("telescope.actions").move_selection_previous(...)
         end,
