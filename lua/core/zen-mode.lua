@@ -10,7 +10,7 @@ M.opts = {
 
 M.setup = function()
   vim.cmd [[hi WinSeparator guifg=bg guibg=bg gui=none]]
-  vim.cmd [[hi statusline guifg=bg guibg=bg gui=none]]
+  vim.cmd [[hi statusline guifg=fg guibg=bg gui=none]]
 end
 
 return M
