@@ -1,6 +1,7 @@
 local colorscheme = require("config").colorscheme
 
 return {
+	{ "JerryWhoami/palenight.nvim" },
 	{ "JoosepAlviste/palenightfall.nvim" },
 	{
 		"folke/tokyonight.nvim",

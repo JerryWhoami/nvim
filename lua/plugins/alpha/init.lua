@@ -1,6 +1,7 @@
 local utils = require("core.utils")
 
-local custom = require("config").alpha
+local config = require("config")
+local custom = config.alpha
 
 local footerOpts = {
 	fortune = function()
@@ -9,6 +10,7 @@ local footerOpts = {
 		handle:close()
 		return fortune
 	end,
+
 	lazy = function()
 		local stats = require("lazy").stats()
 		local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
@@ -17,58 +19,29 @@ local footerOpts = {
 	end,
 }
 
+local themes = require("plugins.alpha.themes")
+
+local padding = function()
+	local window = vim.api.nvim_get_current_win()
+	local win_height = vim.api.nvim_win_get_height(window)
+
+	local logo_height = #themes[config.alpha.theme]
+
+	return vim.fn.floor((win_height - logo_height) * 0.5)
+end
+
 return {
 	"goolord/alpha-nvim",
 	event = "VimEnter",
-	opts = function()
-		local status_ok, alpha = pcall(require, "alpha")
-		if not status_ok then
-			return
-		end
-
-		local dashboard = require("alpha.themes.dashboard")
-		local themes = require("plugins.alpha.themes")
-
-		dashboard.section.header.val = themes[custom.theme]
-
-		dashboard.section.buttons.val = {
-			dashboard.button("f", "  Find file", ":Telescope find_files<CR>"),
-			dashboard.button("r", "  Recently used files", ":Telescope oldfiles<CR>"),
-			dashboard.button("t", "  Find text", ":Telescope live_grep <CR>"),
-			dashboard.button("c", "  Configuration", ":e ~/.config/nvim/lua/config.lua <CR>"),
-			dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
-		}
-
-		dashboard.section.footer.opts.hl = "Type"
-		dashboard.section.header.opts.hl = "Include"
-		dashboard.section.buttons.opts.hl = "Keyword"
-
-		return dashboard
-	end,
-	config = function(_, dashboard)
-		vim.b.miniindentscope_disable = true
-
-		-- close Lazy and re-open when the dashboard is ready
-		if vim.o.filetype == "lazy" then
-			vim.cmd.close()
-			vim.api.nvim_create_autocmd("User", {
-				pattern = "AlphaReady",
-				callback = function()
-					require("lazy").show()
-				end,
-			})
-		end
-
-		require("alpha").setup(dashboard.opts)
-
-		vim.api.nvim_create_autocmd("User", {
-			pattern = "LazyVimStarted",
-			callback = function()
-				local footer = footerOpts[custom.footer]
-
-				dashboard.section.footer.val = footer
-				pcall(vim.cmd.AlphaRedraw)
-			end,
-		})
-	end,
+	opts = {
+		layout = {
+			{ type = "padding", val = padding() },
+			{
+				type = "text",
+				val = themes[config.alpha.theme],
+				opts = { hl = "AlphaLogo", position = "center" },
+			},
+		},
+		opts = {},
+	},
 }

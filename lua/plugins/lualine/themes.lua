@@ -1,31 +1,48 @@
 local M = {}
 
 local tokyonight_night_colors = {
-  white = "#abb2bf",
-  black = "#1e222a",
-  grey = "#6f737b",
-  green = "#98c379",
-  blue = "#81A1C1",
-  purple = "#c882e7",
-  orange = "#fca2aa",
-  statusline_bg = "#22262e",
-  lightbg = "#2d3139",
+	white = "#abb2bf",
+	black = "#1e222a",
+	grey = "#6f737b",
+	green = "#98c379",
+	blue = "#81A1C1",
+	purple = "#c882e7",
+	orange = "#fca2aa",
+	statusline_bg = "#22262e",
+	lightbg = "#2d3139",
 }
 
 M.tokyonight_night = {
-  normal = {
-    a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.blue },
-    b = { fg = tokyonight_night_colors.white, bg = tokyonight_night_colors.lightbg },
-    c = { fg = tokyonight_night_colors.grey, bg = tokyonight_night_colors.statusline_bg },
+	normal = {
+		a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.blue },
+		b = { fg = tokyonight_night_colors.white, bg = tokyonight_night_colors.lightbg },
+		c = { fg = tokyonight_night_colors.grey, bg = tokyonight_night_colors.statusline_bg },
 
-    x = { fg = tokyonight_night_colors.blue, bg = tokyonight_night_colors.statusline_bg },
-    y = { fg = tokyonight_night_colors.white, bg = tokyonight_night_colors.lightbg },
-    z = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.blue },
-  },
-  insert = { a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.green } },
-  visual = { a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.orange } },
-  terminal = { a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.purple } },
-  replace = { a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.green } },
+		x = { fg = tokyonight_night_colors.blue, bg = tokyonight_night_colors.statusline_bg },
+		y = { fg = tokyonight_night_colors.white, bg = tokyonight_night_colors.lightbg },
+		z = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.blue },
+	},
+	insert = { a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.green } },
+	visual = { a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.orange } },
+	terminal = { a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.purple } },
+	replace = { a = { fg = tokyonight_night_colors.black, bg = tokyonight_night_colors.green } },
+}
+
+local zen_colors = require("palenightfall").colors
+M.zen = {
+	normal = {
+		a = { fg = zen_colors.foreground, bg = zen_colors.statusline },
+		b = { fg = zen_colors.foreground, bg = zen_colors.statusline },
+		c = { fg = zen_colors.foreground, bg = zen_colors.statusline },
+
+		x = { fg = zen_colors.foreground, bg = zen_colors.statusline },
+		y = { fg = zen_colors.foreground, bg = zen_colors.statusline },
+		z = { fg = zen_colors.foreground, bg = zen_colors.statusline },
+	},
+	insert = { a = { fg = zen_colors.foreground, bg = zen_colors.statusline } },
+	visual = { a = { fg = zen_colors.foreground, bg = zen_colors.statusline } },
+	terminal = { a = { fg = zen_colors.foreground, bg = zen_colors.statusline } },
+	replace = { a = { fg = zen_colors.foreground, bg = zen_colors.statusline } },
 }
 
 return M
