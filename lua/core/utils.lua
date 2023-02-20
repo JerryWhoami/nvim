@@ -1,5 +1,15 @@
 local M = {}
 
+M.is_enabled = function(plugin)
+  local disabled_plugins = require("config").disabled_plugins
+
+  if M.contains(plugin, disabled_plugins) then
+    return false
+  end
+
+  return true
+end
+
 M.contains = function(element, table)
   for _, value in pairs(table) do
     if element == value then
